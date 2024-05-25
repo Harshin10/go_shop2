@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "637202407686",
+    "firebase_url": "https://go-shop-3-default-rtdb.firebaseio.com",
+    "project_id": "go-shop-3",
+    "storage_bucket": "go-shop-3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637202407686:android:1626f342e7f74c5e5cbe87",
+        "android_client_info": {
+          "package_name": "com.example.go_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637202407686-iacfjibusouj37oubqb2e6m2o2j4t63u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.go_shop",
+            "certificate_hash": "eb5da2f9d7d4f9b0af94d112bc4b4bc18763ebca"
+          }
+        },
+        {
+          "client_id": "637202407686-3unjo2vuelmurpq5hsmabr5ntrm5afm3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh-DA4SorWdkFiQv2Qx2bvSCP2dIhICuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637202407686-3unjo2vuelmurpq5hsmabr5ntrm5afm3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
