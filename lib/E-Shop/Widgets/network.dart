@@ -1,18 +1,16 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_shop/E-Shop/Pages/login_page.dart';
 
-class NetworkErrorPage extends StatefulWidget {
+class NetworkErrorPage extends ConsumerWidget {
   final VoidCallback onRefresh;
 
   NetworkErrorPage({required this.onRefresh});
-  @override
-  _NetworkErrorPageState createState() => _NetworkErrorPageState();
-}
 
-class _NetworkErrorPageState extends State<NetworkErrorPage> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -33,8 +31,11 @@ class _NetworkErrorPageState extends State<NetworkErrorPage> {
                 var connectivityResult =
                     await Connectivity().checkConnectivity();
                 if (connectivityResult != ConnectivityResult.none) {
-                  // If network is available, call the onRefresh callback
-                  widget.onRefresh();
+                 
+                  onRefresh();
+                } else {
+                
+                  ref.read(networkProvider.notifier).checkNetworkStatus();
                 }
               },
               child: Text('Refresh'),

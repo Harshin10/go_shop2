@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_add_to_cart_button/flutter_add_to_cart_button.dart';
-import 'package:go_shop/E-Shop/Api/api.dart';
+import 'package:go_shop/E-Shop/Api/apimodel.dart';
 import 'package:go_shop/E-Shop/Pages/checkout_page.dart';
 import 'package:go_shop/E-Shop/Widgets/network.dart';
 import 'package:google_fonts/google_fonts.dart';

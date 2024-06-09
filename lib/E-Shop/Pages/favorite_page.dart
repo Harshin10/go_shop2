@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
-import 'package:go_shop/E-Shop/Api/api.dart';
+import 'package:go_shop/E-Shop/Api/apimodel.dart';
 import 'package:go_shop/E-Shop/Pages/product_page/eachproducts.dart';
 import 'package:go_shop/E-Shop/Widgets/network.dart';
 import 'package:google_fonts/google_fonts.dart';

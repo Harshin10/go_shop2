@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:go_shop/E-Shop/Pages/login_page.dart';
 
 class IntroPage extends StatefulWidget {
+  final VoidCallback onFinished;
+
+  IntroPage({required this.onFinished});
   @override
   _IntroPageState createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage> {
+
   PageController controller = PageController();
   int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
+    return Container(
 //      width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: Colors.grey[100],
@@ -220,7 +223,6 @@ class _IntroPageState extends State<IntroPage> {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }

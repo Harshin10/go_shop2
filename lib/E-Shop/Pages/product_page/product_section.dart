@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:go_shop/E-Shop/Api/api.dart';
+import 'package:go_shop/E-Shop/Api/apimodel.dart';
 import 'package:go_shop/E-Shop/Pages/product_page/eachproducts.dart';
 import 'package:go_shop/E-Shop/Widgets/network.dart';
 import 'package:google_fonts/google_fonts.dart';

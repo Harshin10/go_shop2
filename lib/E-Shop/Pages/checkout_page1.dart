@@ -2,7 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:go_shop/E-Shop/Api/api.dart';
+import 'package:go_shop/E-Shop/Api/apimodel.dart';
 import 'package:go_shop/E-Shop/Widgets/checkout_address_page.dart';
 import 'package:go_shop/E-Shop/Widgets/network.dart';
 import 'package:intl/intl.dart';
