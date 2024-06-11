@@ -116,6 +116,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final hasInternet = ref.watch(networkProvider);
     final products = ref.watch(productProvider);
+  final SearchAPI searchAPI = SearchAPI(); // Create an instance of SearchAPI
 
     if (!hasInternet) {
       return NetworkErrorPage(onRefresh: () {
@@ -127,13 +128,13 @@ class HomePage extends ConsumerWidget {
       resizeToAvoidBottomInset: false,
       body: products.isEmpty
           ? const Center(
-              child: CircularProgressIndicator(),
-            )
+                                child: EasyLoader(image: AssetImage("asset/logo.png"),),
+                              )
           : Stack(
               fit: StackFit.expand,
               children: [
                 homepage(context, products),
-                // buildFloatingSearchBar( controller),
+               buildFloatingSearchBar(searchAPI),
               ],
             ),
     );
@@ -312,25 +313,25 @@ class HomePage extends ConsumerWidget {
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         makeCategory(context,
-                            category: 'Clothes',
+                            category: 'Womens-Dresses',
                             image:
-                                'https://images.unsplash.com/photo-1514970733252-4e0b0ef2e184'),
+                                'https://plus.unsplash.com/premium_photo-1661661855747-29818fbf6e9b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjkzfHx3b21lbiUyMGRyZXNzZXN8ZW58MHx8MHx8fDA%3D'),
                         makeCategory(context,
-                            category: 'Shoes',
+                            category: 'Womens-Shoes',
                             image:
-                                'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb'),
+                                'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhZGllcyUyMHNob2VzfGVufDB8fDB8fHww'),
                         makeCategory(context,
-                            category: 'Accessories',
+                            category: 'Sports-Accessories',
                             image:
-                                'https://images.unsplash.com/photo-1512201078372-9c6b2a0d528a'),
+                                'https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vdGJhbGx8ZW58MHx8MHx8fDA%3D'),
                         makeCategory(context,
-                            category: 'Home',
+                            category: 'Mens-Shirt',
                             image:
-                                'https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2'),
+                                'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHNoaXJ0fGVufDB8fDB8fHww'),
                         makeCategory(context,
-                            category: 'Beauty',
+                            category: 'Vehicle',
                             image:
-                                'https://images.unsplash.com/photo-1512446811060-3ea50e01e515'),
+                                'https://images.unsplash.com/photo-1493238792000-8113da705763?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNhcnN8ZW58MHx8MHx8fDA%3D'),
                       ],
                     ),
                   ),
@@ -562,141 +563,183 @@ class HomePage extends ConsumerWidget {
   //   );
   // }
 
-  Widget makeCategory(context,
-      {required String category, required String image}) {
-    return AspectRatio(
-      aspectRatio: 5 / 4,
-      child: GestureDetector(
-        onTap: () {
+ Widget makeCategory(BuildContext context, {required String category, required String image}) {
+  return AspectRatio(
+    aspectRatio: 5 / 4,
+    child: GestureDetector(
+      onTap: () async {
+        // Show loading indicator while fetching products
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        );
+
+        try {
+          // Fetch products by category
+          List<Product> products = await APIService.fetchProductsByCategory(category);
+
+          // Close the loading indicator
+          Navigator.pop(context);
+
+          // Navigate to DataPage with fetched products
           Navigator.push(
             context,
             PageTransition(
               type: PageTransitionType.fade,
-              child: CategoryHome(),
+              child: DataPage(products: products),
             ),
           );
-        },
-        child: Container(
-          margin: const EdgeInsets.only(right: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              image: CachedNetworkImageProvider(image),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 40,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black.withOpacity(0.5),
-              ),
-              child: Center(
-                child: Text(
-                  category,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+        } catch (error) {
+          // Close the loading indicator
+          Navigator.pop(context);
+
+          // Show error message
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Error'),
+                content: Text('Failed to load products: $error'),
+                actions: [
+                  TextButton(
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
+                ],
+              );
+            },
+          );
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: CachedNetworkImageProvider(image),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            height: 40,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.black.withOpacity(0.5),
+            ),
+            child: Center(
+              child: Text(
+                category,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget buildFloatingSearchBar(SearchAPI controller) {
-    return FloatingSearchBar(
-      showCursor: true,
-      hint: 'Search...',
-      onQueryChanged: (query) {
-        controller.fetchProducts(query);
-      },
-      onSubmitted: (query) {
-        controller.fetchProducts(query);
-      },
-      clearQueryOnClose: true,
-      transition: CircularFloatingSearchBarTransition(),
-      actions: [
-        FloatingSearchBarAction(
-          showIfOpened: false,
-          child: CircularButton(
-            icon: const Icon(Icons.maps_home_work_outlined),
-            onPressed: () {},
-          ),
+ Widget buildFloatingSearchBar(SearchAPI controller) {
+  return FloatingSearchBar(
+    showCursor: true,
+    hint: 'Search...',
+    onQueryChanged: (query) {
+      controller.fetchProducts(query);
+    },
+    onSubmitted: (query) {
+      controller.fetchProducts(query);
+    },
+    clearQueryOnClose: true,
+    transition: CircularFloatingSearchBarTransition(),
+    actions: [
+      FloatingSearchBarAction(
+        showIfOpened: false,
+        child: CircularButton(
+          icon: const Icon(Icons.maps_home_work_outlined),
+          onPressed: () {},
         ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
-      ],
-      builder: (context, transition) {
-        return StreamBuilder<List<Product>>(
-          stream: controller.productStream,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    child: Lottie.asset('asset/lottie1.json'),
-                  ),
-                ],
-              );
-            } else if (snapshot.hasError) {
-              return Center(child: Text(snapshot.error.toString()));
-            } else {
-              List<Product> products = snapshot.data ?? [];
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Material(
-                  elevation: 4.0,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (controller.isLoading)
-                        Center(child: Lottie.asset('asset/lottie1.json')),
-                      if (controller.hasError)
-                        Center(child: Text(controller.errorMessage)),
-                      if (!controller.isLoading && !controller.hasError)
-                        ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: products.length,
-                          itemBuilder: (context, index) {
-                            final product = products[index];
-                            return Bounceable(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductDetails(product: product),
-                                  ),
-                                );
-                              },
-                              child: ListTile(
-                                title: Text(product.title),
-                                // Add other details as needed
-                              ),
-                            );
-                          },
-                        ),
-                    ],
-                  ),
+      ),
+      FloatingSearchBarAction.searchToClear(
+        showIfClosed: false,
+      ),
+    ],
+    builder: (context, transition) {
+      return StreamBuilder<List<Product>>(
+        stream: controller.productStream,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 150,
+                  height: 150,
+                  child: Lottie.asset('asset/lottie1.json'),
                 ),
-              );
-            }
-          },
-        );
-      },
-    );
-  }
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            List<Product> products = snapshot.data ?? [];
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Material(
+                elevation: 4.0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (controller.isLoading)
+                      Center(child: Lottie.asset('asset/lottie1.json')),
+                    if (controller.hasError)
+                      Center(child: Text(controller.errorMessage)),
+                    if (!controller.isLoading && !controller.hasError)
+                      ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          final product = products[index];
+                          return Bounceable(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductDetails(product: product),
+                                ),
+                              );
+                            },
+                            child: ListTile(
+                              title: Text(product.title),
+                              // Add other details as needed
+                            ),
+                          );
+                        },
+                      ),
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    },
+  );
+}
+
 }

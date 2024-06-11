@@ -90,10 +90,8 @@ class SearchAPI extends ChangeNotifier {
         final dynamic data = response.data;
 
         if (data is List) {
-          // If data is a List, directly assign it to products
           products = data.map((productData) => Product.fromJson(productData)).toList();
         } else if (data is Map<String, dynamic>) {
-          // If data is a Map, extract the list from the Map
           products = (data['products'] as List).map((productData) => Product.fromJson(productData)).toList();
         } else {
           throw Exception('Invalid JSON structure. Expected a List or Map.');
@@ -106,6 +104,8 @@ class SearchAPI extends ChangeNotifier {
       if (e.response?.statusCode == 429) {
         retryCount++;
         print('Retrying after 1 second... Retry count: $retryCount');
+        await Future.delayed(Duration(seconds: 1));
+        return fetchProducts(query); // Retry fetching
       } else {
         hasError = true;
         errorMessage = 'Error fetching products: ${e.message}';
@@ -123,7 +123,14 @@ class SearchAPI extends ChangeNotifier {
 
   void clearProducts() {
     products = [];
+    _productStreamController.add(products); // Update the stream with cleared products
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _productStreamController.close();
+    super.dispose();
   }
 }
 class APIService {
