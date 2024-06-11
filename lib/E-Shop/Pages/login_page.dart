@@ -75,8 +75,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(
-                'https://images.unsplash.com/photo-1619611191741-692703d71d51?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHdhbGxwYXBlciUyMGZvciUyMG1vYmlsZXxlbnwwfHwwfHx8MA%3D%3D'),
+              image: AssetImage(
+                'asset/login.png'),
               fit: BoxFit.fill,
             ),
           ),
@@ -320,11 +320,15 @@ if (isInternetAvailable){
           context,
           MaterialPageRoute(builder: (context) => Nav()),
         );
-      }} else{
-         Navigator.push(
+      }} 
+      else {
+      if (context.mounted) {
+       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => NetworkErrorPage(onRefresh: () {  },)));
       }
+    }
+    
     } catch (e) {
       String errorMessage = "An error occurred during login.";
 
@@ -357,4 +361,5 @@ if (isInternetAvailable){
       });
     }
   }
+   
 }

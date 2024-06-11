@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_loader/easy_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -13,11 +14,45 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CategoryHome extends ConsumerWidget {
+ 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoryAsyncValue = ref.watch(APIService.categoryProvider);
    List imageUrl =["https://plus.unsplash.com/premium_photo-1673628167571-532a6c5f5d16?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXR5JTIwcHJvZHVjdHN8ZW58MHx8MHx8fDA%3D",
-                    ""];
+                    "https://plus.unsplash.com/premium_photo-1679106770086-f4355693be1b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cGVyZnVtZSUyMHNwcmF5fGVufDB8fDB8fHww",
+                    "https://plus.unsplash.com/premium_photo-1673548917423-073963e7afc9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnVybml0dXJlfGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGdyb2Nlcnl8ZW58MHx8MHx8fDA%3D",
+                    "https://images.unsplash.com/photo-1582131503261-fca1d1c0589f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGhvbWUlMjBkZWNvcnxlbnwwfHwwfHx8MA%3D%3D",
+                    "https://images.unsplash.com/photo-1556185781-a47769abb7ee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8a2l0Y2hlbiUyMGFjY2Vzc29yaWVzfGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1526657782461-9fe13402a841?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
+                    "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHNoaXJ0fGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2hvZXN8ZW58MHx8MHx8fDA%3D",
+                    "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHdhdGNofGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1596207498818-edb80522f50b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Z2FkZ2V0fGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1614152412509-7a5afc18c75b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG1vdG9yJTIwYmlrZXxlbnwwfHwwfHx8MA%3D%3D",
+                    "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNraW5jYXJlfGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1592890288564-76628a30a657?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBob25lfGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vdGJhbGx8ZW58MHx8MHx8fDA%3D",
+                    "https://images.unsplash.com/photo-1515613813261-5cd015bcd184?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3VuJTIwZ2xhc3N8ZW58MHx8MHx8fDA%3D",
+                    "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dGFibGV0fGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1533736970669-7edc3f971be1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHdvbWVuJTIwZHJlc3Nlc3xlbnwwfHwwfHx8MA%3D%3D",
+                    "https://images.unsplash.com/photo-1493238792000-8113da705763?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNhcnN8ZW58MHx8MHx8fDA%3D",
+                    "https://images.unsplash.com/photo-1589731119540-c4586781dae1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGxhZGllcyUyMGhhbmRiYWd8ZW58MHx8MHx8fDA%3D",
+                    "https://plus.unsplash.com/premium_photo-1661661855747-29818fbf6e9b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjkzfHx3b21lbiUyMGRyZXNzZXN8ZW58MHx8MHx8fDA%3D",
+                    "https://images.unsplash.com/photo-1617074172287-f364b77c1e77?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZWFycmluZ3N8ZW58MHx8MHx8fDA%3D",
+                    "https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxhZGllcyUyMHNob2VzfGVufDB8fDB8fHww",
+                    "https://images.unsplash.com/photo-1653651460792-34c383a224fb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bGFkaWVzJTIwd2F0Y2hlc3xlbnwwfHwwfHx8MA%3D%3D",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ];
     return Scaffold(
       body: categoryAsyncValue.when(
         data: (categories) => GridView.builder(
@@ -106,141 +141,11 @@ class CategoryHome extends ConsumerWidget {
             );
           },
         ),
-        loading: () => Center(child: CircularProgressIndicator()),
+        loading: () =>  Center(
+                                child: EasyLoader(image: AssetImage("asset/logo.png"),),
+                              ),
         error: (error, stackTrace) => Center(child: Text('Failed to load categories')),
       ),
     );
   }
 }
-// class Categories {
-//   final String title;
-//   final String imageUrl;
-
-//   Categories({
-//     required this.title,
-//     required this.imageUrl, required BoxFit fit,
-//   });
-// }
-
-
-// final List<Categories> categories = [
-//   Categories(
-//     title: 'SmartPhones',
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1592890288564-76628a30a657?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: 'Laptops',
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1618410320928-25228d811631?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEzfHx8ZW58MHx8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Mens-Shirts",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1508243529287-e21914733111?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Mens-Shoes",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Mens-Watches",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1575125069494-6a0c5819d340?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Sunglasses",
-//     imageUrl:
-//         'https://images.pexels.com/photos/343720/pexels-photo-343720.jpeg?auto=compress&cs=tinysrgb&w=600',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Womens-Dresses",
-//     imageUrl:
-//         'https://plus.unsplash.com/premium_photo-1664910175563-a1ecea779c85?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Womens-Shoes",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1620683834571-fe8bdb306daf?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Womens-Watches",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1490915785914-0af2806c22b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Womens-Bags",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1524498250077-390f9e378fc0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Tops",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1620799139652-715e4d5b232d?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "jewellery",
-//     imageUrl:
-//                       'https://images.unsplash.com/photo-1511253819057-5408d4d70465?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',   fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Skincare",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1586220742613-b731f66f7743?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Fragrances",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1544468266-6a8948003cd7?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Groceries",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1542990253-a781e04c0082?q=80&w=1994&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "AutoMotive",
-//     imageUrl:
-//         'https://plus.unsplash.com/premium_photo-1661589670435-65cfb3224205?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Home-Decoration",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Lighting",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1611453466149-491a07b6312a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "Furniture",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-//   Categories(
-//     title: "MotorCycle",
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1664710713335-755afb757503?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     fit: BoxFit.fill,
-//   ),
-// ];

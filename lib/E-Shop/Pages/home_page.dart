@@ -41,16 +41,15 @@ import 'package:page_transition/page_transition.dart';
 //   List<Product> allProducts = []; // Your list of all products
 //   List<Product> searchResults = [];
 //   final TextEditingController textController = TextEditingController();
-  late final List<String> imageList = [
-    "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://media.istockphoto.com/id/1395058279/photo/couple-at-home-making-a-reservation-online-using-their-laptop.webp?b=1&s=170667a&w=0&k=20&c=Cqhsw8Alwh_DOL7Pr5RwgO12HlehlQaUJ6z-ZEHe3Hc=",
-    "https://images.unsplash.com/photo-1571210862729-78a52d3779a2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGtpZHN8ZW58MHx8MHx8fDA%3D",
-    "https://plus.unsplash.com/premium_photo-1663126299834-b8f22641f3c0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGtpZHN8ZW58MHx8MHx8fDA%3D",
-    "https://media.istockphoto.com/id/526019537/photo/hangers-with-clothes.webp?s=170667a&w=0&k=20&c=vBcPbpO8mI-sVcWZZ3WDhwrPefwrBO0MyvhKY3edkyA=",
-    "https://images.unsplash.com/photo-1512201078372-9c6b2a0d528a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D"
-  ];
-
+late final List<String> imageList = [
+  "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://media.istockphoto.com/id/1395058279/photo/couple-at-home-making-a-reservation-online-using-their-laptop.webp?b=1&s=170667a&w=0&k=20&c=Cqhsw8Alwh_DOL7Pr5RwgO12HlehlQaUJ6z-ZEHe3Hc=",
+  "https://images.unsplash.com/photo-1571210862729-78a52d3779a2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGtpZHN8ZW58MHx8MHx8fDA%3D",
+  "https://plus.unsplash.com/premium_photo-1663126299834-b8f22641f3c0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGtpZHN8ZW58MHx8MHx8fDA%3D",
+  "https://media.istockphoto.com/id/526019537/photo/hangers-with-clothes.webp?s=170667a&w=0&k=20&c=vBcPbpO8mI-sVcWZZ3WDhwrPefwrBO0MyvhKY3edkyA=",
+  "https://images.unsplash.com/photo-1512201078372-9c6b2a0d528a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D"
+];
 
 //   bool hasInternet = true;
 
@@ -143,100 +142,98 @@ class HomePage extends ConsumerWidget {
   SingleChildScrollView homepage(
       BuildContext context, List<Product>? products) {
     return SingleChildScrollView(
-        child: Column(
-      children: [
-        FadeInUp(
-            duration: const Duration(milliseconds: 1000),
-            child: Container(
-              height: MediaQuery.of(context).size.width * 1.2,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image: CachedNetworkImageProvider(
-                  'https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                ),
-                fit: BoxFit.cover,
-              )),
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.bottomRight,
-                            colors: [
-                          Colors.black.withOpacity(.8),
-                          Colors.black.withOpacity(.2),
-                        ])),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Padding(padding: EdgeInsets.all(30)),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              FadeInUp(
-                                  duration: const Duration(milliseconds: 1500),
-                                  child: Text(
-                                    "GO SHOP",
-                                    style: GoogleFonts.alegreyaSansSc(
-                                      fontSize: 40.0,
-                                      fontWeight: FontWeight.bold,
-                                      textStyle:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                  )),
-                              const Spacer(),
-                              FadeInUp(
-                                  duration: const Duration(milliseconds: 1200),
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.favorite,
-                                      color: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.fade,
-                                          child: FavoritesScreen(),
-                                        ),
-                                      );
-                                    },
-                                  )),
-                              FadeInUp(
-                                  duration: const Duration(milliseconds: 1300),
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.shopping_cart,
-                                      color: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.fade,
-                                          child: CartScreen(),
-                                        ),
-                                      );
-                                    },
-                                  )),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        child: Column(children: [
+      FadeInUp(
+          duration: const Duration(milliseconds: 1000),
+          child: Container(
+            height: MediaQuery.of(context).size.width * 1.2,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+              image: CachedNetworkImageProvider(
+                'https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
               ),
+              fit: BoxFit.cover,
             )),
-        FadeInUp(
-            duration: const Duration(milliseconds: 1400),
-            child: Container(
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      gradient:
+                          LinearGradient(begin: Alignment.bottomRight, colors: [
+                    Colors.black.withOpacity(.8),
+                    Colors.black.withOpacity(.2),
+                  ])),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Padding(padding: EdgeInsets.all(30)),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            FadeInUp(
+                                duration: const Duration(milliseconds: 1500),
+                                child: Text(
+                                  "GO SHOP",
+                                  style: GoogleFonts.alegreyaSansSc(
+                                    fontSize: 40.0,
+                                    fontWeight: FontWeight.bold,
+                                    textStyle:
+                                        const TextStyle(color: Colors.white),
+                                  ),
+                                )),
+                            const Spacer(),
+                            FadeInUp(
+                                duration: const Duration(milliseconds: 1200),
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.favorite,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: FavoritesScreen(),
+                                      ),
+                                    );
+                                  },
+                                )),
+                            FadeInUp(
+                                duration: const Duration(milliseconds: 1300),
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.shopping_cart,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: CartScreen(),
+                                      ),
+                                    );
+                                  },
+                                )),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )),
+      FadeInUp(
+          duration: const Duration(milliseconds: 1400),
+          child: Container(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: <Widget>[
@@ -293,14 +290,14 @@ class HomePage extends ConsumerWidget {
                           );
                         },
                         color: Colors.amber[100],
-                        child:Text(
-                                'All',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                        child: Text(
+                          'All',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -309,17 +306,31 @@ class HomePage extends ConsumerWidget {
                   ),
                   Container(
                     decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    height: 80,
+                        BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                    height: 200,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                      makeCategory(context, category: 'Clothes', image: 'https://images.unsplash.com/photo-1514970733252-4e0b0ef2e184'),
-makeCategory(context, category: 'Shoes', image: 'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb'),
-makeCategory(context, category: 'Accessories', image: 'https://images.unsplash.com/photo-1512201078372-9c6b2a0d528a'),
-makeCategory(context, category: 'Home', image: 'https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2'),
-makeCategory(context, category: 'Beauty', image: 'https://images.unsplash.com/photo-1512446811060-3ea50e01e515'),
-
+                        makeCategory(context,
+                            category: 'Clothes',
+                            image:
+                                'https://images.unsplash.com/photo-1514970733252-4e0b0ef2e184'),
+                        makeCategory(context,
+                            category: 'Shoes',
+                            image:
+                                'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb'),
+                        makeCategory(context,
+                            category: 'Accessories',
+                            image:
+                                'https://images.unsplash.com/photo-1512201078372-9c6b2a0d528a'),
+                        makeCategory(context,
+                            category: 'Home',
+                            image:
+                                'https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2'),
+                        makeCategory(context,
+                            category: 'Beauty',
+                            image:
+                                'https://images.unsplash.com/photo-1512446811060-3ea50e01e515'),
                       ],
                     ),
                   ),
@@ -327,73 +338,80 @@ makeCategory(context, category: 'Beauty', image: 'https://images.unsplash.com/ph
                     height: 40,
                   ),
                   const Text(
-                          "New Arrival",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                    "New Arrival",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   FadeInUp(
-                    duration: const Duration(milliseconds: 2000),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: products!.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetails(
-                                  product: products[index],
-                                ),
-                              ),
-                            );
-                          },
-                          child: Card(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                AspectRatio(
-                                  aspectRatio: 1.8,
-                                  child: CachedNetworkImage(
-                                    imageUrl: products![index].thumbnail,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    products[index].title,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                      duration: const Duration(milliseconds: 2000),
+                      child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: products!.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductDetails(
+                                        product: products[index],
+                                      ),
                                     ),
+                                  );
+                                },
+                                child: Card(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      AspectRatio(
+                                        aspectRatio: 1.8,
+                                        child: CachedNetworkImage(
+                                          imageUrl: products[index].thumbnail,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          products[index].title,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Text(
+                                          '\$${products![index].price}',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    '\$${products![index].price}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange,
-                                    ),
-                                  ),
-                                ),
+                                ));
+                          }))
                 ],
-              ),
-            ));
-       })) ],
-    )))]));
+              )))
+    ]));
   }
 
   // FutureBuilder<List<Product>> apiproducts() {
@@ -544,9 +562,10 @@ makeCategory(context, category: 'Beauty', image: 'https://images.unsplash.com/ph
   //   );
   // }
 
- Widget makeCategory(context,{required String category, required String image}) {
+  Widget makeCategory(context,
+      {required String category, required String image}) {
     return AspectRatio(
-      aspectRatio: 2.5 / 2,
+      aspectRatio: 5 / 4,
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -591,94 +610,93 @@ makeCategory(context, category: 'Beauty', image: 'https://images.unsplash.com/ph
     );
   }
 
- Widget buildFloatingSearchBar(SearchAPI controller) {
-  return FloatingSearchBar(
-    showCursor: true,
-    hint: 'Search...',
-    onQueryChanged: (query) {
-      controller.fetchProducts(query);
-    },
-    onSubmitted: (query) {
-      controller.fetchProducts(query);
-    },
-    clearQueryOnClose: true,
-    transition: CircularFloatingSearchBarTransition(),
-    actions: [
-      FloatingSearchBarAction(
-        showIfOpened: false,
-        child: CircularButton(
-          icon: const Icon(Icons.maps_home_work_outlined),
-          onPressed: () {},
+  Widget buildFloatingSearchBar(SearchAPI controller) {
+    return FloatingSearchBar(
+      showCursor: true,
+      hint: 'Search...',
+      onQueryChanged: (query) {
+        controller.fetchProducts(query);
+      },
+      onSubmitted: (query) {
+        controller.fetchProducts(query);
+      },
+      clearQueryOnClose: true,
+      transition: CircularFloatingSearchBarTransition(),
+      actions: [
+        FloatingSearchBarAction(
+          showIfOpened: false,
+          child: CircularButton(
+            icon: const Icon(Icons.maps_home_work_outlined),
+            onPressed: () {},
+          ),
         ),
-      ),
-      FloatingSearchBarAction.searchToClear(
-        showIfClosed: false,
-      ),
-    ],
-    builder: (context, transition) {
-      return StreamBuilder<List<Product>>(
-        stream: controller.productStream,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 150,
-                  height: 150,
-                  child: Lottie.asset('asset/lottie1.json'),
+        FloatingSearchBarAction.searchToClear(
+          showIfClosed: false,
+        ),
+      ],
+      builder: (context, transition) {
+        return StreamBuilder<List<Product>>(
+          stream: controller.productStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 150,
+                    height: 150,
+                    child: Lottie.asset('asset/lottie1.json'),
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()));
+            } else {
+              List<Product> products = snapshot.data ?? [];
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Material(
+                  elevation: 4.0,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (controller.isLoading)
+                        Center(child: Lottie.asset('asset/lottie1.json')),
+                      if (controller.hasError)
+                        Center(child: Text(controller.errorMessage)),
+                      if (!controller.isLoading && !controller.hasError)
+                        ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: products.length,
+                          itemBuilder: (context, index) {
+                            final product = products[index];
+                            return Bounceable(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductDetails(product: product),
+                                  ),
+                                );
+                              },
+                              child: ListTile(
+                                title: Text(product.title),
+                                // Add other details as needed
+                              ),
+                            );
+                          },
+                        ),
+                    ],
+                  ),
                 ),
-              ],
-            );
-          } else if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
-          } else {
-            List<Product> products = snapshot.data ?? [];
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Material(
-                elevation: 4.0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (controller.isLoading)
-                      Center(child: Lottie.asset('asset/lottie1.json')),
-                    if (controller.hasError)
-                      Center(child: Text(controller.errorMessage)),
-                    if (!controller.isLoading && !controller.hasError)
-                      ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          final product = products[index];
-                          return Bounceable(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductDetails(product: product),
-                                ),
-                              );
-                            },
-                            child: ListTile(
-                              title: Text(product.title),
-                              // Add other details as needed
-                            ),
-                          );
-                        },
-                      ),
-                  ],
-                ),
-              ),
-            );
-          }
-        },
-      );
-    },
-  );
-}
-
+              );
+            }
+          },
+        );
+      },
+    );
+  }
 }

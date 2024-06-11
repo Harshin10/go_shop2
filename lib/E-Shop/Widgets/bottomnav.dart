@@ -20,6 +20,7 @@ class _NavState extends State<Nav> {
   int _selectedIndex = 0;
 
   @override
+  
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
     return WillPopScope(
