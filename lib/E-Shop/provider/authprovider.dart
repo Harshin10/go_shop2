@@ -1,6 +1,18 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_shop/E-Shop/Pages/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+final connectivityProvider = StreamProvider<ConnectivityResult>((ref) {
+  return Connectivity().onConnectivityChanged
+      .expand((connectivityList) => connectivityList)
+      .distinct(); // Optional: Ensure only distinct connectivity results are emitted
+});
+
+
+
+
 
 final introPageProvider = FutureProvider<bool>((ref) async {
   final prefs = await SharedPreferences.getInstance();
@@ -14,22 +26,3 @@ Future<void> setIntroShown() async {
 }
 
 
-
-final authProvider = StateNotifierProvider<AuthProvider, bool>((ref) => AuthProvider());
-
-class AuthProvider extends StateNotifier<bool> {
-  AuthProvider() : super(false);
-
-  Future<void> signIn(String email, String password) async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      state = true;
-    } catch (_) {
-      state = false; 
-      rethrow; 
-    }
-  }
-}
