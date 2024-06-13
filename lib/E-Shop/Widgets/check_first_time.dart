@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_shop/E-Shop/Pages/login_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatefulWidget {
   final VoidCallback onFinished;

@@ -1,12 +1,9 @@
-import 'dart:async';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_shop/E-Shop/Api/apimodel.dart';
 import 'package:go_shop/E-Shop/Pages/cart_page.dart';
 import 'package:go_shop/E-Shop/Pages/favorite_page.dart';
 import 'package:go_shop/E-Shop/Pages/login_page.dart';
 import 'package:go_shop/E-Shop/Pages/product_page/category_home_page.dart';
-import 'package:go_shop/E-Shop/Widgets/search.dart';
 import 'package:go_shop/E-Shop/Widgets/network.dart';
 import 'package:go_shop/E-Shop/provider/productprovider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -398,7 +395,7 @@ class HomePage extends ConsumerWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0),
                                         child: Text(
-                                          '\$${products![index].price}',
+                                          '\$${products[index].price}',
                                           style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,

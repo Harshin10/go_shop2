@@ -189,14 +189,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                 ),
                 Bounceable(
-                  onTap: () async {
-                    User? user = await _signInWithGoogle();
-                    if (user != null) {
-                      print('Successfully signed in with Google: ${user.displayName}');
-                    } else {
-                      print('Failed to sign in with Google');
-                    }
-                  },
+                   onTap: () async {
+                  User? user = await _signInWithGoogle();
+                  if (user != null) {
+                    print('Successfully signed in with Google: ${user.displayName}');
+                       Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Nav()),
+        );
+                  } else {
+                    print('Failed to sign in with Google');
+                  }
+                },
                   child: Container(
                     height: MediaQuery.of(context).size.height / 15,
                     width: MediaQuery.of(context).size.width / 7,
@@ -270,28 +274,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     }
   }
 
-  Future<User?> _signInWithGoogle() async {
-    final googleSignIn = ref.read(googleSignInProvider);
-    final auth = ref.read(authProvider);
 
-    try {
-      final googleUser = await googleSignIn.signIn();
-      if (googleUser == null) {
-        return null;
-      }
-      final googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
-
-      final userCredential = await auth.signInWithCredential(credential);
-      return userCredential.user;
-    } catch (e) {
-      print('Error during Google sign-in: $e');
-      return null;
-    }
-  }
    Future<void> _login(BuildContext context) async {
         bool isInternetAvailable = await InternetConnectionChecker().hasConnection;
 
@@ -361,5 +344,32 @@ if (isInternetAvailable){
       });
     }
   }
-   
+     Future<User?> _signInWithGoogle() async {
+    final googleSignIn = ref.read(googleSignInProvider);
+    final auth = ref.read(authProvider);
+
+    try {
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        return null;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+
+      final UserCredential userCredential = await auth.signInWithCredential(credential);
+      return userCredential.user;
+    } catch (e) {
+      print('Error signing in with Google: $e');
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(message: "Failed to sign in with Google. Please try again."),
+      );
+      return null;
+    }
+  }
+
 }

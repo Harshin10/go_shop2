@@ -1,17 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_loader/easy_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:go_shop/E-Shop/Api/api.dart';
 import 'package:go_shop/E-Shop/Api/apimodel.dart';
 import 'package:go_shop/E-Shop/Pages/product_page/product_section.dart';
-import 'package:go_shop/E-Shop/Widgets/network.dart';
-import 'package:go_shop/E-Shop/provider/productprovider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 class CategoryHome extends ConsumerWidget {
  
