@@ -1,5 +1,6 @@
 // ignore_for_file: unused_result
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -188,30 +189,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     child: const Text('Forgot Password?', style: TextStyle(color: Colors.red)),
                   ),
                 ),
-                Bounceable(
-                   onTap: () async {
-                  User? user = await _signInWithGoogle();
-                  if (user != null) {
-                    print('Successfully signed in with Google: ${user.displayName}');
-                       Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Nav()),
-        );
-                  } else {
-                    print('Failed to sign in with Google');
-                  }
-                },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 15,
-                    width: MediaQuery.of(context).size.width / 7,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('asset/googlelogo.jpg'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
+                // Bounceable(
+                //    onTap: () async {
+                //  signup(context);
+                 
+                // },
+                //   child: Container(
+                //     height: MediaQuery.of(context).size.height / 15,
+                //     width: MediaQuery.of(context).size.width / 7,
+                //     decoration: const BoxDecoration(
+                //       image: DecorationImage(
+                //         image: AssetImage('asset/googlelogo.jpg'),
+                //         fit: BoxFit.fill,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 8.0),
                 SizedBox(
                   height: 48.0,
@@ -229,27 +222,54 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                 ),
                 SizedBox(height: 16.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('New User?', style: TextStyle(color: Colors.amber[100])),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              child: const RegistrationPage(),
-                              type: PageTransitionType.bottomToTop,
-                            ),
-                          );
-                        },
-                        child: const Text('Sign Up', style: TextStyle(color: Colors.red)),
-                      ),
-                    ],
+               Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          
+          Text(
+            'New User?',
+            style: TextStyle(
+              color: Colors.amber[100],
+                              fontWeight: FontWeight.bold,
+
+              fontSize: 16.0,
+            ),
+          ),
+          Container(
+            height: 23.0, // Height of the vertical bar
+            width: 1.5, // Width of the vertical bar
+            color: Colors.black, // Color of the vertical bar
+          ),
+          Bounceable(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const RegistrationPage(),
+                  type: PageTransitionType.bottomToTop,
+                  duration: Duration(milliseconds: 500), // Adding animation duration
+                ),
+              );
+            },
+            child: Row(
+              children: [
+                Icon(Icons.person_add, color: Colors.blueGrey), // Add your desired icon here
+                SizedBox(width: 5.0),
+                Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+              ],
+            ),
+      )],
+      ),
+    )
               ]),
             ),
           ),
@@ -344,32 +364,55 @@ if (isInternetAvailable){
       });
     }
   }
-     Future<User?> _signInWithGoogle() async {
-    final googleSignIn = ref.read(googleSignInProvider);
-    final auth = ref.read(authProvider);
+  
+  void progressbar(BuildContext context) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (_) => const Center(
+      child: CircularProgressIndicator.adaptive(
+        backgroundColor: Color(0xff98c1d9),
+      ),
+      
+    ),
+  );
+}
+// Example method to handle Google Sign-In
+final FirebaseAuth auth = FirebaseAuth.instance;  
+ 
+  Future<void> signup(BuildContext context) async {
+                        progressbar(context);
 
-    try {
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      if (googleUser == null) {
-        return null;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential authCredential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
+       
+      // Getting users credential
+      UserCredential result = await auth.signInWithCredential(authCredential);  
+      User user = result.user!;
+      
+      if (result != null) {
+          showTopSnackBar(
+            Overlay.of(context),
+            CustomSnackBar.success(message: "success"),
+          );
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Nav()));
       }
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
-
-      final UserCredential userCredential = await auth.signInWithCredential(credential);
-      return userCredential.user;
-    } catch (e) {
-      print('Error signing in with Google: $e');
-      showTopSnackBar(
-        Overlay.of(context),
-        CustomSnackBar.error(message: "Failed to sign in with Google. Please try again."),
-      );
-      return null;
+      
+         
+    } 
+    else{
+          showTopSnackBar(
+            Overlay.of(context),
+            CustomSnackBar.error(message: "Not Found"),
+          );
     }
+     
   }
-
 }
